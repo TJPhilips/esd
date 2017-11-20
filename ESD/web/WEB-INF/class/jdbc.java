@@ -64,3 +64,57 @@ public class Jdbc {
         b.append("</table>");
         return b.toString();
     }//makeHtmlTable
+   private void select(String query) {
+        //Statement statement = null;
+
+        try {
+            statement = connection.createStatement();
+            rs = statement.executeQuery(query);
+            //statement.close();
+        } catch (SQLException e) {
+            System.out.println("way way" + e);
+            //results = e.toString();
+        }
+    }
+
+    public String retrieve(String query) throws SQLException {
+        String results = "";
+        select(query);
+        return makeTable(rsToList());//results;
+    }
+
+    public boolean exists(String user) {
+        boolean bool = false;
+        try {
+            select("select username from users where username='" + user + "'");
+            if (rs.next()) {
+                System.out.println("TRUE");
+                bool = true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Jdbc.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return bool;
+    }
+
+    public void insertNewClaim(String[] str) {
+
+        PreparedStatement ps = null;
+
+        try {
+
+            ps = connection.prepareStatement("INSERT INTO claims (id, mem_id, date, rationale, status, amount) VALUES (?,?,?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
+            ps.setString(2, str[0]);
+            ps.setDate(3, java.sql.Date.valueOf(ls));
+            ps.setString(4, str[1]);
+            ps.setString(5, "SUBMITED");
+            ps.setFloat(6, Float.valueOf(str[3]));
+            ps.executeUpdate();
+
+            ps.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Jdbc.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
