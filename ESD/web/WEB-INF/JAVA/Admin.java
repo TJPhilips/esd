@@ -40,7 +40,34 @@ public class Admin extends HttpServlet {
         
         String msg;
 
-     
+        if (request.getParameter("members") != null) {
+
+            try {
+                
+                msg = dbBean.retrieve("select * from members");
+                request.setAttribute("msg", msg);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            request.setAttribute("title", "List of all current members");
+            request.getRequestDispatcher("/WEB-INF/results.jsp").forward(request, response);
+
+        }
+        if (request.getParameter("applications") != null) {
+            
+             try {
+                
+                msg = dbBean.retrieve("select id, name from members where status='APPLIED'");
+                request.setAttribute("msg", msg);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            request.setAttribute("title", "List of all current applications");
+            request.getRequestDispatcher("/WEB-INF/results.jsp").forward(request, response);
+        }
 
     }
 
