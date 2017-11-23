@@ -60,7 +60,7 @@ public class Jdbc {
                 b.append("</td>");
             }
             b.append("</tr>\n");
-        } // for
+        } 
         b.append("</table>");
         return b.toString();
     }//makeHtmlTable - sync again with adam's commits
