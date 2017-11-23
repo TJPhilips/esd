@@ -15,7 +15,7 @@ import model.Jdbc;
 
 public class Admin extends HttpServlet {
 
-    /**
+    /*
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
@@ -61,7 +61,7 @@ public class Admin extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/results.jsp").forward(request, response);
         }
     }
-    /**
+    /*
      * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
@@ -74,7 +74,7 @@ public class Admin extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-    /**
+    /*
      * Handles the HTTP <code>POST</code> method.
      *
      * @param request servlet request
@@ -87,7 +87,7 @@ public class Admin extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-    /**
+    /*
      * Returns a short description of the servlet.
      *
      * @return a String containing servlet description
