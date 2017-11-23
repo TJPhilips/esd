@@ -13,9 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Jdbc;
 
-/**
-
- */
 public class Admin extends HttpServlet {
 
     /**
@@ -39,21 +36,16 @@ public class Admin extends HttpServlet {
 
         
         String msg;
-
         if (request.getParameter("members") != null) {
-
-            try {
-                
+            try {              
                 msg = dbBean.retrieve("select * from members");
                 request.setAttribute("msg", msg);
 
             } catch (SQLException ex) {
                 Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
             }
-
             request.setAttribute("title", "List of all current members");
             request.getRequestDispatcher("/WEB-INF/results.jsp").forward(request, response);
-
         }
         if (request.getParameter("applications") != null) {
             
@@ -68,10 +60,7 @@ public class Admin extends HttpServlet {
             request.setAttribute("title", "List of all current applications");
             request.getRequestDispatcher("/WEB-INF/results.jsp").forward(request, response);
         }
-
     }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -85,7 +74,6 @@ public class Admin extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -99,7 +87,6 @@ public class Admin extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
     /**
      * Returns a short description of the servlet.
      *
@@ -109,5 +96,4 @@ public class Admin extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }
