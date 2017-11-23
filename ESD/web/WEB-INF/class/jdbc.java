@@ -22,11 +22,11 @@ public class Jdbc {
     //String query = null;
 
     public Jdbc(String query) {
-        //this.query = query; 
+        
     }
 
     public Jdbc() {
-        //throw new UnsupportedOperationException("Not currently supported.");
+        //query
     }
 
     public void connect(Connection con) {
@@ -43,9 +43,9 @@ public class Jdbc {
                 s[i - 1] = rs.getString(i);
             }
             aList.add(s);
-        } // while    
+        }  
         return aList;
-    } //rsToList
+    } 
 
     private String makeTable(ArrayList list) {
         StringBuilder b = new StringBuilder();
