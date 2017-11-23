@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com;
 
 import java.io.IOException;
@@ -17,12 +12,9 @@ import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 import model.Jdbc;
 
-/**
- *
-*/
 public class UserLogin extends HttpServlet {
 
-    /**
+    /*
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
@@ -51,22 +43,17 @@ public class UserLogin extends HttpServlet {
             if (jdbc.checkUser(id, password)) {
                 if (id.equals("admin") && password.equals("admin")) {
                     request.getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
-                    session.setAttribute("userID", "admin");
-                
+                    session.setAttribute("userID", "admin");                
             } else {
                     request.getRequestDispatcher("/WEB-INF/userPage.jsp").forward(request, response);
                     session.setAttribute("userID", id);
             }
-
             } else {
                 request.getRequestDispatcher("/WEB-INF/userLoginFail.jsp").forward(request, response);
             }
         }
-
     }
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-
-    /**
+    /*
      * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
@@ -79,8 +66,7 @@ public class UserLogin extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
-    /**
+    /*
      * Handles the HTTP <code>POST</code> method.
      *
      * @param request servlet request
@@ -93,8 +79,7 @@ public class UserLogin extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
-    /**
+    /*
      * Returns a short description of the servlet.
      *
      * @return a String containing servlet description
