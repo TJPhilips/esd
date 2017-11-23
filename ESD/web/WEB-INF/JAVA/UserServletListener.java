@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com;
 
 import java.sql.Connection;
@@ -26,6 +21,7 @@ public class UserServletListener implements ServletContextListener {
         String db = sc.getInitParameter("dbname");
         
         try {
+            //establish connection between servlet and database
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+db.trim(), "root", "");
         }
@@ -37,7 +33,6 @@ public class UserServletListener implements ServletContextListener {
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         try { conn.close(); } catch(SQLException e) {}
     }
 }
