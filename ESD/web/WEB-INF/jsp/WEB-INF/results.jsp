@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Database Results</title>
+        <title>DB Results</title>
     </head>
     <body>
         <h1><%=(String)(request.getAttribute("title"))%></h1>
