@@ -1,24 +1,21 @@
 /*
- * ESD Project NewUser.java
+ * ESD Project Update.java
  */
 package pages;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.util.Random;
-import javax.servlet.RequestDispatcher;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Jdbc;
-import org.apache.commons.lang3.RandomStringUtils;
 
 /**
  *
  */
-public class NewUser extends HttpServlet {
+public class Update extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,36 +29,30 @@ public class NewUser extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        HttpSession session = request.getSession();
-
-        Random rn = new Random();
-
-        String[] query = new String[5];
-
-        query[0] = (String) request.getParameter("firstname").substring(0, 1).toLowerCase() + "-" + (String) request.getParameter("lastname").toLowerCase();
-        query[1] = (String) request.getParameter("firstname") + " " + (String) request.getParameter("lastname");
-        query[2] = (String) request.getParameter("address");
-        query[3] = (String) request.getParameter("dob");
-        query[4] = RandomStringUtils.randomAlphabetic(10).toLowerCase();
-
-        Jdbc jdbc = new Jdbc();
-        jdbc.connect((Connection) request.getServletContext().getAttribute("connection"));
-        session.setAttribute("dbbean", jdbc);
-
-        if (jdbc == null) {
+       
+         HttpSession session = request.getSession(false);
+        
+        Jdbc jdbc = (Jdbc)session.getAttribute("dbbean"); 
+        if (jdbc == null)
             request.getRequestDispatcher("/WEB-INF/conErr.jsp").forward(request, response);
-        } else {
+        else {
+            String [] query = new String[3];
+        
+            query[0] = (String)request.getParameter("username");
+            query[1] = (String)request.getParameter("password");
+            query[2] = (String)request.getParameter("newpasswd");  
             
-            jdbc.insertNewUser(query);
-            request.setAttribute("username", query[0]);
-            request.setAttribute("password", query[4]);
-            session.setAttribute("userID", query[0]);
-            session.setAttribute("Login", "yes");
-
-            request.getRequestDispatcher("/WEB-INF/regSuccess.jsp").forward(request, response);
+            if(!query[1].trim().equals(query[2].trim())) {
+                request.setAttribute("msg", "Your two passwords are not the same. </br> Please make sure you confirm the password</br>");
+                request.getRequestDispatcher("/WEB-INF/passwdChange.jsp").forward(request, response); 
+            }
+             else {
+                //jdbc.update(query);
+                
+                request.setAttribute("msg", ""+query[0]+"'s passwd is changed</br>");
+                request.getRequestDispatcher("/WEB-INF/passwdChange.jsp").forward(request, response);
+            }
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -100,7 +91,7 @@ public class NewUser extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "I'm outdated don't use me";
-    }
+        return "Short description";
+    }// </editor-fold>
 
 }
